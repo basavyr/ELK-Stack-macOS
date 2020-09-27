@@ -137,3 +137,4 @@ yellow open filebeat-7.9.2-2020.09.27      YvVWNMQyQDm9xHmopgR_kQ 1 1 71851   0 
 ```
 
 > More info on doing ES queries [here](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/cat-indices.html).
+
