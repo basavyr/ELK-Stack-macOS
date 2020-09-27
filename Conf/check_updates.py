@@ -2,6 +2,7 @@
 
 import filecmp
 import os
+import shutil
 
 
 def give_service_sys_path(service):
@@ -9,24 +10,27 @@ def give_service_sys_path(service):
     return service_path
 
 
+project_tree = str(os.path.abspath(os.curdir))+'/'
+# print(project_tree)
+
 # the config filepaths (installed on the actual system)
 logstash_pipeline = '/usr/local/etc/logstash/conf/logstash-sample.conf'
-logstash_conf = '/usr/local/etc/logstash/logstash.yml'
-metricbeat_conf = '/usr/local/etc/metricbeat/metricbeat.yml'
-filebeat_conf = '/usr/local/etc/filebeat/filebeat.yml'
+logstash_conf = give_service_sys_path('logstash')
+metricbeat_conf = give_service_sys_path('metricbeat')
+filebeat_conf = give_service_sys_path('filebeat')
 
-# local copies of the config files
-local_logstash_pipeline = 'logstash-sample.conf'
-local_logstash_conf = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Conf/logstash.yml'
-local_metricbeat_conf = 'metricbeat.yml'
-local_filebeat_conf = 'filebeat.yml'
+# local copies of the config files (on the project tree)
+local_logstash_pipeline = project_tree + 'logstash-sample.conf'
+local_logstash_conf = project_tree + 'logstash.yml'
+local_metricbeat_conf = project_tree+'metricbeat.yml'
+local_filebeat_conf = project_tree+'filebeat.yml'
 
 sys_name = os.uname().nodename
 
+print(
+    f'Starting to check for any updates on the config pipelines available @ {sys_name}...')
 print(f'Sys info...')
 print(f'{os.uname().machine}')
-print(
-    f'Starting to check for any updates on the config pipelines available @ {sys_name}')
 
 
 def absolute_path(path):
@@ -35,9 +39,14 @@ def absolute_path(path):
 
 def CheckFiles(files):
     for file in files:
-        if(filecmp.cmp(file[0], file[1]) is True):
-            print(f'✅')
+        if(filecmp.cmp(file[1], file[2]) is True):
+            print(f'{file[0]} | ✅')
+        else:
+            print(f'{file[0]} | ⛔️')
+            shutil.copy(file[1], file[2])
+            print(f'The config for {file[0]} was updated...| 📂')
 
-files=[[logstash_conf,local_logstash_conf]]
+
+files = [['logstash', logstash_conf, local_logstash_conf], ['metricbeat', metricbeat_conf, local_metricbeat_conf], ['filebeat', filebeat_conf, local_filebeat_conf]]
 
 CheckFiles(files)
