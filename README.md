@@ -59,3 +59,7 @@ The versions which are currently running on the machine are as follow:
 ## Worklfow
 
 **Main goal**: View the MacBook Pro's system metrics in realtime with Kibana. Data will be stored in a Elasticsearch index.
+
+___
+> ***General information, configuration setup issues and solutions will be described in detail [here](Resources/description.md).***
+___
