@@ -102,3 +102,38 @@ bin/logstash -f /usr/local/etc/logstash/logstash-sample.conf
 ```
 
 Output can be then seen within Kibana (see example [here](kibanaElastic.pdf)).
+
+## Filebeat example
+
+By configuring **Filebeat** to send a certain log (given a path), logstash ingests that particular lor, and then outputs it to elasticsearch server.
+
+Check the filebeat config [here](../Conf/filebeat.yml)
+
+The pipeline allows logstash to ingest a log file (the actual file is [this one](logstash-tutorial.log)) and send it through elasticsearch. With Kibana, it is possible to see the content of the file.
+
+[The Kibana UI with filebeat input](filebeatKibana.pdf).
+
+## Check the existent indices on the elasticsearch server
+
+With the following query (done directly in the browser), while ES instance is running, one can see all the indices created on the server.
+
+```html
+http://localhost:9200/_cat/indices
+```
+
+Results for this ES instance are as follows:
+
+```text
+green  open .kibana-event-log-7.9.2-000001 fKi45-HOS5m5ajsN1yZpWA 1 0     1   0   5.5kb   5.5kb
+green  open .apm-custom-link               YZAuMTEwQ2iz5oyn9npSOA 1 0     0   0    208b    208b
+green  open .kibana_task_manager_1         wM8uCqDbSvGGShveCDBlwQ 1 0     6 867 297.8kb 297.8kb
+green  open .kibana-event-log-7.9.1-000001 VSPVEjXmQe2efe-A6VPsdA 1 0     1   0   5.5kb   5.5kb
+green  open .apm-agent-configuration       1EOMdRuWReOxbbEdErC1CQ 1 0     0   0    208b    208b
+green  open .async-search                  DSEMH06FR6iGjZehiB6C2Q 1 0     0   0    12mb    12mb
+green  open .kibana_2                      mGhpsWZWQPCRQVrLDQoHfg 1 0    47  96  10.4mb  10.4mb
+green  open .kibana_1                      7DDvtXHoRMOpABWn0Oe56g 1 0    27  43  10.6mb  10.6mb
+yellow open metricbeat-7.9.2-2020.09.27    YCef8YYGTP2aFyyyKAlFBQ 1 1  3742   0   2.9mb   2.9mb
+yellow open filebeat-7.9.2-2020.09.27      YvVWNMQyQDm9xHmopgR_kQ 1 1 71851   0  31.6mb  31.6mb
+```
+
+> More info on doing ES queries [here](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/cat-indices.html).
