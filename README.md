@@ -4,7 +4,7 @@
 
 This project aims at running a working [ELK](https://www.elastic.co/) stack fully customizable and configurable by the user. The entire service is configured on macOS Catalina, on a 16'' MacBookPro.
 
-System metrics will be collected to a **logstash** server, and the parsed data will be sent to the elasticsearch server. 
+System metrics will be collected to a **logstash** server, and the parsed data will be sent to the elasticsearch server.
 
 Using Kibana UI, one can see the entire index pattern and create any queries on the collected data.
 
@@ -121,6 +121,6 @@ Python was used in the workflow for the following tasks:
 
 ![](Resources/Images/filebeatLogger.png)
 
-### Kibana & UI 
+### Kibana & UI
 
 ![](./Resources/Images/2020-09-29-19-22-01.png)

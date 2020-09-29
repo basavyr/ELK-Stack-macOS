@@ -138,3 +138,7 @@ yellow open filebeat-7.9.2-2020.09.27      YvVWNMQyQDm9xHmopgR_kQ 1 1 71851   0 
 
 > More info on doing ES queries [here](https://www.elastic.co/guide/en/elasticsearch/reference/6.8/cat-indices.html).
 
+## Issues encountered in the development stages
+
+1. [exceptioncaught-event-was-fired](https://discuss.elastic.co/t/logstash-an-exceptioncaught-event-was-fired-and-it-reached-at-the-tail-of-the-pipeline-it-usually-means-the-last-handler-in-the-pipeline-did-not-handle-the-exception/180515)
+2. [Metricbeat Failed to connect EOF](https://discuss.elastic.co/t/metricbeat-failed-to-connect-eof/210939)
