@@ -119,3 +119,8 @@ Python was used in the workflow for the following tasks:
 
 ### Detailed workflow with the filebeat-logstash-es-kibana implementation
 
+![](Resources/Images/filebeatLogger.png)
+
+### Kibana & UI 
+
+![](./Resources/Images/2020-09-29-19-22-01.png)
