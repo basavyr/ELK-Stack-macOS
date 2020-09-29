@@ -93,3 +93,39 @@ Sending Logstash logs to /usr/local/Cellar/logstash-full/7.9.2/libexec/logs whic
 [2020-09-29T12:16:06,220][INFO ][logstash.agent           ] Pipelines running {:count=>1, :running_pipelines=>[:main], :non_running_pipelines=>[]}
 [2020-09-29T12:16:06,238][INFO ][org.logstash.beats.Server][main][365713cc91c4cadb6bbf107f609c560c5a47b2d4d507243d2e8878a54f42f33a] Starting server on port: 5044
 [2020-09-29T12:16:06,434][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=>9600}
+Sending Logstash logs to /usr/local/Cellar/logstash-full/7.9.2/libexec/logs which is now configured via log4j2.properties
+[2020-09-29T12:19:17,671][INFO ][logstash.runner          ] Starting Logstash {"logstash.version"=>"7.9.2", "jruby.version"=>"jruby 9.2.13.0 (2.5.7) 2020-08-03 9a89c94bcc OpenJDK 64-Bit Server VM 25.265-b01 on 1.8.0_265-b01 +indy +jit [darwin-x86_64]"}
+[2020-09-29T12:19:17,859][WARN ][logstash.config.source.multilocal] Ignoring the 'pipelines.yml' file because modules or command line options are specified
+[2020-09-29T12:19:19,186][INFO ][org.reflections.Reflections] Reflections took 30 ms to scan 1 urls, producing 22 keys and 45 values 
+[2020-09-29T12:19:19,824][INFO ][logstash.outputs.elasticsearch][main] Elasticsearch pool URLs updated {:changes=>{:removed=>[], :added=>[http://localhost:9200/]}}
+[2020-09-29T12:19:19,968][WARN ][logstash.outputs.elasticsearch][main] Restored connection to ES instance {:url=>"http://localhost:9200/"}
+[2020-09-29T12:19:20,003][INFO ][logstash.outputs.elasticsearch][main] ES Output version determined {:es_version=>7}
+[2020-09-29T12:19:20,006][WARN ][logstash.outputs.elasticsearch][main] Detected a 6.x and above cluster: the `type` event field won't be used to determine the document _type {:es_version=>7}
+[2020-09-29T12:19:20,043][INFO ][logstash.outputs.elasticsearch][main] New Elasticsearch output {:class=>"LogStash::Outputs::ElasticSearch", :hosts=>["http://localhost:9200"]}
+[2020-09-29T12:19:20,088][INFO ][logstash.outputs.elasticsearch][main] Using a default mapping template {:es_version=>7, :ecs_compatibility=>:disabled}
+[2020-09-29T12:19:20,127][INFO ][logstash.javapipeline    ][main] Starting pipeline {:pipeline_id=>"main", "pipeline.workers"=>16, "pipeline.batch.size"=>125, "pipeline.batch.delay"=>50, "pipeline.max_inflight"=>2000, "pipeline.sources"=>["/usr/local/etc/logstash/conf/logstash-sample.conf"], :thread=>"#<Thread:0x6b673c3f run>"}
+[2020-09-29T12:19:20,156][INFO ][logstash.outputs.elasticsearch][main] Attempting to install template {:manage_template=>{"index_patterns"=>"logstash-*", "version"=>60001, "settings"=>{"index.refresh_interval"=>"5s", "number_of_shards"=>1}, "mappings"=>{"dynamic_templates"=>[{"message_field"=>{"path_match"=>"message", "match_mapping_type"=>"string", "mapping"=>{"type"=>"text", "norms"=>false}}}, {"string_fields"=>{"match"=>"*", "match_mapping_type"=>"string", "mapping"=>{"type"=>"text", "norms"=>false, "fields"=>{"keyword"=>{"type"=>"keyword", "ignore_above"=>256}}}}}], "properties"=>{"@timestamp"=>{"type"=>"date"}, "@version"=>{"type"=>"keyword"}, "geoip"=>{"dynamic"=>true, "properties"=>{"ip"=>{"type"=>"ip"}, "location"=>{"type"=>"geo_point"}, "latitude"=>{"type"=>"half_float"}, "longitude"=>{"type"=>"half_float"}}}}}}}
+[2020-09-29T12:19:20,761][INFO ][logstash.javapipeline    ][main] Pipeline Java execution initialization time {"seconds"=>0.63}
+[2020-09-29T12:19:20,781][INFO ][logstash.inputs.beats    ][main] Beats inputs: Starting input listener {:address=>"0.0.0.0:5044"}
+[2020-09-29T12:19:20,796][INFO ][logstash.javapipeline    ][main] Pipeline started {"pipeline.id"=>"main"}
+[2020-09-29T12:19:20,862][INFO ][logstash.agent           ] Pipelines running {:count=>1, :running_pipelines=>[:main], :non_running_pipelines=>[]}
+[2020-09-29T12:19:20,877][INFO ][org.logstash.beats.Server][main][365713cc91c4cadb6bbf107f609c560c5a47b2d4d507243d2e8878a54f42f33a] Starting server on port: 5044
+[2020-09-29T12:19:21,067][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=>9600}
+Sending Logstash logs to /usr/local/Cellar/logstash-full/7.9.2/libexec/logs which is now configured via log4j2.properties
+[2020-09-29T12:19:56,979][INFO ][logstash.runner          ] Starting Logstash {"logstash.version"=>"7.9.2", "jruby.version"=>"jruby 9.2.13.0 (2.5.7) 2020-08-03 9a89c94bcc OpenJDK 64-Bit Server VM 25.265-b01 on 1.8.0_265-b01 +indy +jit [darwin-x86_64]"}
+[2020-09-29T12:19:57,174][WARN ][logstash.config.source.multilocal] Ignoring the 'pipelines.yml' file because modules or command line options are specified
+[2020-09-29T12:19:58,589][INFO ][org.reflections.Reflections] Reflections took 30 ms to scan 1 urls, producing 22 keys and 45 values 
+[2020-09-29T12:19:59,243][INFO ][logstash.outputs.elasticsearch][main] Elasticsearch pool URLs updated {:changes=>{:removed=>[], :added=>[http://localhost:9200/]}}
+[2020-09-29T12:19:59,436][WARN ][logstash.outputs.elasticsearch][main] Restored connection to ES instance {:url=>"http://localhost:9200/"}
+[2020-09-29T12:19:59,473][INFO ][logstash.outputs.elasticsearch][main] ES Output version determined {:es_version=>7}
+[2020-09-29T12:19:59,476][WARN ][logstash.outputs.elasticsearch][main] Detected a 6.x and above cluster: the `type` event field won't be used to determine the document _type {:es_version=>7}
+[2020-09-29T12:19:59,523][INFO ][logstash.outputs.elasticsearch][main] New Elasticsearch output {:class=>"LogStash::Outputs::ElasticSearch", :hosts=>["http://localhost:9200"]}
+[2020-09-29T12:19:59,564][INFO ][logstash.outputs.elasticsearch][main] Using a default mapping template {:es_version=>7, :ecs_compatibility=>:disabled}
+[2020-09-29T12:19:59,602][INFO ][logstash.javapipeline    ][main] Starting pipeline {:pipeline_id=>"main", "pipeline.workers"=>16, "pipeline.batch.size"=>125, "pipeline.batch.delay"=>50, "pipeline.max_inflight"=>2000, "pipeline.sources"=>["/usr/local/etc/logstash/conf/logstash-sample.conf"], :thread=>"#<Thread:0x64441c98 run>"}
+[2020-09-29T12:19:59,629][INFO ][logstash.outputs.elasticsearch][main] Attempting to install template {:manage_template=>{"index_patterns"=>"logstash-*", "version"=>60001, "settings"=>{"index.refresh_interval"=>"5s", "number_of_shards"=>1}, "mappings"=>{"dynamic_templates"=>[{"message_field"=>{"path_match"=>"message", "match_mapping_type"=>"string", "mapping"=>{"type"=>"text", "norms"=>false}}}, {"string_fields"=>{"match"=>"*", "match_mapping_type"=>"string", "mapping"=>{"type"=>"text", "norms"=>false, "fields"=>{"keyword"=>{"type"=>"keyword", "ignore_above"=>256}}}}}], "properties"=>{"@timestamp"=>{"type"=>"date"}, "@version"=>{"type"=>"keyword"}, "geoip"=>{"dynamic"=>true, "properties"=>{"ip"=>{"type"=>"ip"}, "location"=>{"type"=>"geo_point"}, "latitude"=>{"type"=>"half_float"}, "longitude"=>{"type"=>"half_float"}}}}}}}
+[2020-09-29T12:20:00,213][INFO ][logstash.javapipeline    ][main] Pipeline Java execution initialization time {"seconds"=>0.61}
+[2020-09-29T12:20:00,233][INFO ][logstash.inputs.beats    ][main] Beats inputs: Starting input listener {:address=>"0.0.0.0:5044"}
+[2020-09-29T12:20:00,247][INFO ][logstash.javapipeline    ][main] Pipeline started {"pipeline.id"=>"main"}
+[2020-09-29T12:20:00,321][INFO ][logstash.agent           ] Pipelines running {:count=>1, :running_pipelines=>[:main], :non_running_pipelines=>[]}
+[2020-09-29T12:20:00,325][INFO ][org.logstash.beats.Server][main][365713cc91c4cadb6bbf107f609c560c5a47b2d4d507243d2e8878a54f42f33a] Starting server on port: 5044
+[2020-09-29T12:20:00,525][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=>9600}

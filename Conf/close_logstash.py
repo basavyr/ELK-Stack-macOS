@@ -12,9 +12,9 @@ print(
 command = 'ps aux | grep logstash'
 subprocess.call(command, shell=True)
 
-idle_time=60
-
-time.sleep(idle_time)
+# idle_time=60
+#use this when running the script outside the dedicated filebeat shell script
+# time.sleep(idle_time)
 
 for PID in pids:
     command = f'kill -9 {PID}'
