@@ -54,8 +54,8 @@ def WriteLines(file, lines, number):
 
 
 def LogLineWriter(file, nLines, nReps):
-    logstash_init_time = 1
-    lines_beat_time = 8
+    logstash_init_time = 0
+    lines_beat_time = 15
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
     lines = open(file, 'r').readlines()
@@ -71,4 +71,4 @@ def LogLineWriter(file, nLines, nReps):
     print(f'⌛️ Finished writing the entire log batch to the logfile...')
 
 
-LogLineWriter(logfile, 100, 1)
+LogLineWriter(logfile, 150, 15)
