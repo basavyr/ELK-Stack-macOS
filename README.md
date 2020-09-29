@@ -56,10 +56,66 @@ The versions which are currently running on the machine are as follow:
 
 > Release date for `7.9.2`: September 24, 2020.
 
-## Worklfow
+## Workflow
 
 **Main goal**: View the MacBook Pro's system metrics in realtime with Kibana. Data will be stored in a Elasticsearch index.
 
 ___
 > ***General information, configuration setup issues and solutions will be described in detail [here](Resources/description.md).***
 ___
+
+## Deploying a logging pipeline with filebeat & logstash using python
+
+The metricbeat pipeline has the default configuration, which sends system metrics to the logstash server, and then further sent to in index belonging to the ES instance running locally.
+
+However, with filebeat, any log files can be sent to Elasticsearch to be explored with Kibana. This is a second goal of the current project, namely:
+
+[ ] - Configuring a filebeat module to send logs from a certain file to Elasticsearch, and explore the content with Kibana.
+
+[Filebeat](https://www.elastic.co/beats/filebeat) is used to get logs from a certain location (details below), and then send them to logstash. The local machine has a logstash service installed, and it is able to output the ingested logs to ES. Filebeat module is configured in such a way that the log file existent in the current project tree (see this [file](Resources/logstash-tutorial.log)) is sent to logstash.
+
+***filebeat inputs:***
+
+```yml
+# ============================== Filebeat inputs ===============================
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/logstash-tutorial.log"
+```
+
+***filebeat config:***
+
+```yml
+output.logstash:
+  # The Logstash hosts
+  hosts: ["elk.nipne.ro:5044"]
+```
+
+### Delivering logs constantly
+
+Because this is a static file and it is not tied to any active monitoring tool or service, there should be a process which constantly adds more log lines into the file, so that logstash would have a continuous data stream to send to ES.
+A solution is to use `python`  to read the initial log file, then just randomly select some log lines which will be added constantly, within a timed window, so that one can easily visualize the data stream.
+
+The overall process can be automated with the help of a straightforward shell script which takes care of the following steps:
+
+1. make sure every service required for log shipping, storing and visualizing are working (i.e. elasticsearch, filebeat, and kibana services are started).
+2. start a logstash instance which listens to `beats` coming on port `5044` and configured to output into a specific ES index.
+3. start writing log-lines into the fixed log-file (at a pre-configured path), so that filebeat can deliver the new content to logstash.
+4. stop logstash after the desired amount of data has been shipped.
+
+Example of some content from the file:
+
+```log
+218.30.103.62 - - [04/Jan/2015:05:29:06 +0000] "GET /blog/geekery/puppet-facts-into-mcollective.html HTTP/1.1" 200 9872 "-" "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)"
+198.46.149.143 - - [04/Jan/2015:05:29:13 +0000] "GET /blog/geekery/solving-good-or-bad-problems.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+semicomplete%2Fmain+%28semicomplete.com+-+Jordan+Sissel%29 HTTP/1.1" 200 10756 "-" "Tiny Tiny RSS/1.11 (http://tt-rss.org/)"
+```
+
+Python was used in the workflow for the following tasks:
+
+* Writing log-lines into the file, at specific time intervals. The number of lines and time interval can be fully customized by the user. (The implementation also cleans the file if the size becomes too large for a proper management).
+* Run shell commands so that the logstash server can be stopped when the required logs finish *shipping*.
+
+### Detailed workflow with the filebeat-logstash-es-kibana implementation
+
