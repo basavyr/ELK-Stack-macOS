@@ -85,7 +85,7 @@ def LogLineWriter(file, nLines, nReps):
 def LineWriter_mthrd(file, lines, N_lines):
     with open(file, 'a') as log_file:
         for _ in range(N_lines):
-            line=rd.choice(lines).strip()+'\n'
+            line = rd.choice(lines).strip()+'\n'
             log_file.write(line)
 
 
@@ -114,13 +114,15 @@ def BatchLogWriter(files, N_lines, N_reps):
     print(f'⌛️ Finished writing data in logfiles...')
 
 
-BatchLogWriter(log_batch, 1, 10)
+start = time.time()
+BatchLogWriter(log_batch, 2, 50)
+print(time.time()-start)
 # LogLineWriter(logfile1, 150, 15)
 
 
-# def hi():
-#     time.sleep(1)
-#     print('🙈 hi')
+def timed_function():
+    time.sleep(4)
+    print(rd.randint(10))
 
 
 # num_cores = multiprocessing.cpu_count()

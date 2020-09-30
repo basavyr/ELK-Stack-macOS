@@ -142,3 +142,27 @@ yellow open filebeat-7.9.2-2020.09.27      YvVWNMQyQDm9xHmopgR_kQ 1 1 71851   0 
 
 1. [exceptioncaught-event-was-fired](https://discuss.elastic.co/t/logstash-an-exceptioncaught-event-was-fired-and-it-reached-at-the-tail-of-the-pipeline-it-usually-means-the-last-handler-in-the-pipeline-did-not-handle-the-exception/180515)
 2. [Metricbeat Failed to connect EOF](https://discuss.elastic.co/t/metricbeat-failed-to-connect-eof/210939)
+
+## Taking the advantage of multi-threaded approach in writing logs
+
+The python implementation which is constantly writing log lines into a file has been extended to support multiple file writing (within [this commit](https://github.com/basavyr/ELK-Stack-macOS/commit/a4935221926952092da02aa382c1adda2b63842c)).
+Moreover, the batch of log files in which this script shoudl write log lines was already determined. Within a timed window, a certain number of log lines will be added into each file.
+
+This process can be realized in a serial manner (as it was firstly implemented) but also one can take advantage of the multi-threaded nature of the machine (more precisely, 16 threads).
+
+```python
+print(multiprocessing.cpu_count())
+```
+
+It is possible to **parallelize** a process in python using `joblib` package. A straightforward approach can bee seen below:
+
+```python
+from joblib import Parallel
+from joblib import delayed
+
+import multiprocessing
+parallel_process = Parallel(n_jobs=multiprocessing.cpu_count())(
+    delayed(long_function)(a, 1, 2, 3, 4, 5) for a in values)
+```
+
+The function `long_function` is simultaneously executed by a team of 16 threads. Although it is important to note that it can be possible that the number of tasks that require computation is lower than the available thread pool.
