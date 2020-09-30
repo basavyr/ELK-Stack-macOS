@@ -6,6 +6,7 @@ import time
 from joblib import Parallel, delayed
 import multiprocessing
 
+# Path to the original log file
 backup_logfile = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial_backup.log'
 
 
@@ -81,6 +82,13 @@ def LogLineWriter(file, nLines, nReps):
     print(f'⌛️ Finished writing the entire log batch to the logfile...')
 
 
+def LineWriter_mthrd(file, lines, N_lines):
+    with open(file, 'a') as log_file:
+        for _ in range(N_lines):
+            line=rd.choice(lines).strip()+'\n'
+            log_file.write(line)
+
+
 def BatchLogWriter(files, N_lines, N_reps):
     logstash_init_time = 1
     writing_freq = 0
@@ -97,15 +105,16 @@ def BatchLogWriter(files, N_lines, N_reps):
             elif len(log_content) > 45:
                 ResetFile(backup_logfile, file)
             for _ in range(N_reps):
-                    lines = open(file, 'r').readlines()
-                    print(f'Writing an additional {N_lines} lines to the logfile...📑 ')
-                #     WriteLines(file, lines, nLines)
-                    time.sleep(writing_freq)
+                lines = open(file, 'r').readlines()
+                print(
+                    f'Writing an additional {N_lines} lines to the logfile...📑 ')
+                LineWriter_mthrd(file, lines, N_lines)
+                time.sleep(writing_freq)
         count = count+1
     print(f'⌛️ Finished writing data in logfiles...')
 
 
-BatchLogWriter(log_batch, 150, 2)
+BatchLogWriter(log_batch, 1, 10)
 # LogLineWriter(logfile1, 150, 15)
 
 
