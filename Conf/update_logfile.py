@@ -2,11 +2,21 @@ import os
 from numpy import random as rd
 import time
 
+
+from joblib import Parallel, delayed
+import multiprocessing
+
 backup_logfile = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial_backup.log'
 
 
 # The path to the logfile that must be constantly update
-logfile = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log'
+logfile1 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log'
+logfile2 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-2.log'
+logfile3 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-3.log'
+logfile4 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-4.log'
+logfile5 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-5.log'
+
+log_batch = [logfile1, logfile2, logfile3, logfile4, logfile5]
 
 
 def ResetFile(backup_file, file):
@@ -71,4 +81,42 @@ def LogLineWriter(file, nLines, nReps):
     print(f'⌛️ Finished writing the entire log batch to the logfile...')
 
 
-LogLineWriter(logfile, 150, 15)
+def BatchLogWriter(files, N_lines, N_reps):
+    logstash_init_time = 1
+    writing_freq = 0
+    print(f'⏳Wait for the logstash instance to start...')
+    time.sleep(logstash_init_time)
+    count = 1
+    for file in files:
+        print(f'📝 Writing logs into the file NO-{count}...')
+        with open(file, 'r') as loglines:
+            log_content = loglines.readlines()
+            # print(len(log_content))
+            if(not len(log_content)):
+                FillFile(backup_logfile, file)
+            elif len(log_content) > 45:
+                ResetFile(backup_logfile, file)
+            for _ in range(N_reps):
+                    lines = open(file, 'r').readlines()
+                    print(f'Writing an additional {N_lines} lines to the logfile...📑 ')
+                #     WriteLines(file, lines, nLines)
+                    time.sleep(writing_freq)
+        count = count+1
+    print(f'⌛️ Finished writing data in logfiles...')
+
+
+BatchLogWriter(log_batch, 150, 2)
+# LogLineWriter(logfile1, 150, 15)
+
+
+# def hi():
+#     time.sleep(1)
+#     print('🙈 hi')
+
+
+# num_cores = multiprocessing.cpu_count()
+# print(num_cores)
+
+# Parallel(n_jobs=num_cores)(delayed(hi)() for _ in range(10))
+# # results = Parallel(n_jobs=num_cores)(delayed(processInput)(i) for i in inputs)
+# # print(results)
