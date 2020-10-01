@@ -124,3 +124,9 @@ Python was used in the workflow for the following tasks:
 ### Kibana & UI
 
 ![](./Resources/Images/2020-09-29-19-22-01.png)
+
+### Development of a parallel procedure for writing log-lines into log files
+
+This is realized with the help of some python3 implementations described also [in this file](Resources/description.md).
+
+Diagrams, code snippets and explanations are given for each step of the overall project.
