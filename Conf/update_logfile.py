@@ -89,6 +89,8 @@ def LineWriter_mthrd(file, lines, N_lines):
             log_file.write(line)
 
 
+def Batch_ComponentWriter
+
 def BatchLogWriter(files, N_lines, N_reps):
     logstash_init_time = 1
     writing_freq = 0

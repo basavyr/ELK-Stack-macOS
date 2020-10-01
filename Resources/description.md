@@ -177,3 +177,62 @@ The parallel approach must encode every step for writing logs to a file in a sin
 The overall workflow of the implementation can be seen in the diagram below. It is straightforward to start a writing procedure which takes the file paths as arguments, and within that iterable, every the `Parallel` instance will spawn the required number of threads to write lines into each log file simultaneously.
 
 ![](Images/python_log_lines_parallel.png)
+
+## Comparison between a serial and a parallel approach in solving an iterated job
+
+It is useful to show a simple example that demonstrates the advantages of adopting a parallel procedure within a task which requires iterated jobs (repeated steps towards obtaining a final result).
+
+In the example below, one uses a list of `filepaths` as the iterable and a method that takes these paths as arguments. The function itself just prints the modified string and the **current thread ID**. Since any job is executed by a python computing pipeline, the essential element that does the calculations is a thread (or *main-thread* in the serial approach). This exact procedure is exemplified in the picture above.
+
+```python
+def long_function(a, b, c, d, e, f):
+    my_string = str(a)+str(b)+str(c)+str(d)+str(e)+str(f)
+    time.sleep(5)
+    print(f'⚙️ Thread {threading.current_thread().ident} computed: {my_string}')
+```
+
+The long function has multiple arguments, however, the key argument on which the parallelization is based, consists in the file path. That argument can take multiple values, depending on the size of the array which contains all the paths. 
+
+The goal of the procedure is to have a *team of threads* that execute the function in the same time. Since in the actual function scope, there is a thread sleeper (timed for 5 seconds), one expects that the total execution time of the process will be only 5 seconds, (since those 5 paths will be easily executed simultaneously by an available thread pool). And indeed, this is exactly what happens, as one can see in the results of running the following script.
+
+```python
+def Threaded(values):
+    dash = '-'
+    start = time.time()
+    # parallel_process
+    parallel_process = Parallel(n_jobs=multiprocessing.cpu_count())(
+        delayed(long_function)(a, dash, 2, 3, 4, 5) for a in values)
+    print(f'⏱ Process took {time.time()-start} s')
+
+
+def Serial(values):
+    dash = '-'
+    start = time.time()
+    # serial_process
+    for a in values:
+        long_function(a, dash, 2, 3, 4, 5)
+    print(f'⏱ Process took {time.time()-start} s')
+
+```
+
+and with the following output:
+
+```bash
+python3 parallels.py
+The serial approach:
+⚙️ Thread 4477500864 computed: file-1-2345
+⚙️ Thread 4477500864 computed: file-2-2345
+⚙️ Thread 4477500864 computed: file-3-2345
+⚙️ Thread 4477500864 computed: file-4-2345
+⚙️ Thread 4477500864 computed: file-5-2345
+⏱ Process took 25.00967001914978 s
+The parallel approach:
+⚙️ Thread 4633124288 computed: file-1-2345
+⚙️ Thread 4399766976 computed: file-2-2345
+⚙️ Thread 4651130304 computed: file-3-2345
+⚙️ Thread 4725927360 computed: file-4-2345
+⚙️ Thread 4477668800 computed: file-5-2345
+⏱ Process took 5.424691915512085 s
+```
+
+***Observation***: This method also shows the thread ID, and it is worth noting that in the serial approach, the thread is the same (main-thread). On the other hand, the parallel approach serves a different ID for each function execution, since there is a different thread which executes the method.
