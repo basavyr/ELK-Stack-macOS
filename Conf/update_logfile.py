@@ -92,7 +92,7 @@ def LineWriter_mthrd(file, lines, N_lines):
 
 
 def Batch_ComponentWriter(file, N_lines, N_reps):
-    writing_freq = 5
+    writing_freq = 10
     current_thread = threading.current_thread().ident
     current_file = file[-14:]
     count = 1
@@ -113,7 +113,7 @@ def Batch_ComponentWriter(file, N_lines, N_reps):
 
 
 def BatchLogWriter(files, N_lines, N_reps):
-    logstash_init_time = 0
+    logstash_init_time = 60
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
 
@@ -144,6 +144,6 @@ def BatchLogWriter(files, N_lines, N_reps):
 
 
 start = time.time()
-BatchLogWriter(log_batch, 500, 3)
+BatchLogWriter(log_batch, 500, 10)
 print(f'Total logging process took: {time.time()-start}s')
 # LogLineWriter(logfile1, 150, 15)
