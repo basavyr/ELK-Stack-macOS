@@ -135,3 +135,34 @@ The two mentioned scripts inside the diagram (namely S1 and S2) are described as
 This is realized with the help of some python3 implementations described also [in this file](Resources/description.md).
 
 Diagrams, code snippets and explanations are given for each step of the overall project.
+
+## Adding tags and unique identifiers for each log file 
+
+Following the progress of being able to send logs into different resources files *(multiple files)*, another feature is also extended for the ELK stack workflow, namely: 
+
+> The filebeat configuration pipeline is adding unique tags for each of the log files
+
+In addition to having identifiable log files, logstash server is also extended with the following feature:
+
+> logstash is now capable of creating multiple indices for elasticsearch, so that one can visualize the logs in separate instances within kibana.
+
+Setup for logstash pipeline:
+
+```yml
+# Sample Logstash configuration for creating a simple
+# Beats -> Logstash -> Elasticsearch pipeline.
+
+input {
+  beats {
+    port => 5044
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    manage_template => false
+    index => "%{[fields][log_type]}-index"
+  }
+}
+```
