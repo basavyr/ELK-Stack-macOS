@@ -161,8 +161,19 @@ from joblib import Parallel
 from joblib import delayed
 
 import multiprocessing
+
+values = ['files-1', 'files-2', 'files-3', 'files-4', 'files-5']
+
 parallel_process = Parallel(n_jobs=multiprocessing.cpu_count())(
     delayed(long_function)(a, 1, 2, 3, 4, 5) for a in values)
 ```
 
-The function `long_function` is simultaneously executed by a team of 16 threads. Although it is important to note that it can be possible that the number of tasks that require computation is lower than the available thread pool.
+The function `long_function` is simultaneously executed by a team of 16 threads. 
+
+>Although it is important to note that it can be possible that the number of tasks that require computation is lower than the available thread pool. In this example, the size of the `values` iterable is 5, and the for loop iterates over the entire array, which means that actually less than 16 threads will be required to complete the job.
+
+The parallel approach must encode every step for writing logs to a file in a single method, which should have the main argument as the path to the file in which each of the available threads will start executing the function.
+
+The overall workflow of the implementation can be seen in the diagram below. It is straightforward to start a writing procedure which takes the file paths as arguments, and within that iterable, every the `Parallel` instance will spawn the required number of threads to write lines into each log file simultaneously.
+
+![](Images/python_log_lines_parallel.png)

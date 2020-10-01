@@ -114,11 +114,12 @@ def BatchLogWriter(files, N_lines, N_reps):
     print(f'⌛️ Finished writing data in logfiles...')
 
 
-start = time.time()
-BatchLogWriter(log_batch, 2, 50)
-print(time.time()-start)
+# start = time.time()
+# BatchLogWriter(log_batch, 2, 50)
+# print(time.time()-start)
 # LogLineWriter(logfile1, 150, 15)
 
+print(multiprocessing.current_process())
 
 def timed_function():
     time.sleep(4)
