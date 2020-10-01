@@ -121,6 +121,11 @@ Python was used in the workflow for the following tasks:
 
 ![](Resources/Images/filebeatLogger.png)
 
+The two mentioned scripts inside the diagram (namely S1 and S2) are described as follows:
+
+![](./Resources/Images/py3-logging_s1_s2.png)
+
+
 ### Kibana & UI
 
 ![](./Resources/Images/2020-09-29-19-22-01.png)

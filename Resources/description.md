@@ -179,10 +179,6 @@ The overall workflow of the implementation can be seen in the diagram below. It 
 
 ![](Images/python_log_lines_parallel.png)
 
-The two mentioned scripts inside the diagram (namely S1 and S2) are described as follows:
-
-![](Images/py3-logging_s1_s2.png)
-
 ## Comparison between a serial and a parallel approach in solving an iterated job
 
 It is useful to show a simple example that demonstrates the advantages of adopting a parallel procedure within a task which requires iterated jobs (repeated steps towards obtaining a final result).
