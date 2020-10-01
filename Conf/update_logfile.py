@@ -89,48 +89,43 @@ def LineWriter_mthrd(file, lines, N_lines):
             log_file.write(line)
 
 
-def Batch_ComponentWriter
+def Batch_ComponentWriter(file, N_lines, N_reps):
+    time.sleep(1)
+    print(f'{file[-14:]} is working OK ✅ | {N_lines} - {N_reps}')
+
 
 def BatchLogWriter(files, N_lines, N_reps):
-    logstash_init_time = 1
+    logstash_init_time = 0
     writing_freq = 0
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
     count = 1
-    for file in files:
-        print(f'📝 Writing logs into the file NO-{count}...')
-        with open(file, 'r') as loglines:
-            log_content = loglines.readlines()
-            # print(len(log_content))
-            if(not len(log_content)):
-                FillFile(backup_logfile, file)
-            elif len(log_content) > 45:
-                ResetFile(backup_logfile, file)
-            for _ in range(N_reps):
-                lines = open(file, 'r').readlines()
-                print(
-                    f'Writing an additional {N_lines} lines to the logfile...📑 ')
-                LineWriter_mthrd(file, lines, N_lines)
-                time.sleep(writing_freq)
-        count = count+1
+    parallel_batch = Parallel(n_jobs=multiprocessing.cpu_count())(
+        delayed(Batch_ComponentWriter)(file, N_lines, N_reps) for file in files)
+
+    #! SERIAL APPROACH
+    # for file in files:
+    # Batch_ComponentWriter(file, N_lines, N_reps)
+    # print(f'📝 Writing logs into the file NO-{count}...')
+    # with open(file, 'r') as loglines:
+    #     log_content = loglines.readlines()
+    #     # print(len(log_content))
+    #     if(not len(log_content)):
+    #         FillFile(backup_logfile, file)
+    #     elif len(log_content) > 45:
+    #         ResetFile(backup_logfile, file)
+    #     for _ in range(N_reps):
+    #         lines = open(file, 'r').readlines()
+    #         print(
+    #             f'Writing an additional {N_lines} lines to the logfile...📑 ')
+    #         LineWriter_mthrd(file, lines, N_lines)
+    #         time.sleep(writing_freq)
+    
+    count = count+1
     print(f'⌛️ Finished writing data in logfiles...')
 
 
-# start = time.time()
-# BatchLogWriter(log_batch, 2, 50)
-# print(time.time()-start)
+start = time.time()
+BatchLogWriter(log_batch, 2, 50)
+print(time.time()-start)
 # LogLineWriter(logfile1, 150, 15)
-
-print(multiprocessing.current_process())
-
-def timed_function():
-    time.sleep(4)
-    print(rd.randint(10))
-
-
-# num_cores = multiprocessing.cpu_count()
-# print(num_cores)
-
-# Parallel(n_jobs=num_cores)(delayed(hi)() for _ in range(10))
-# # results = Parallel(n_jobs=num_cores)(delayed(processInput)(i) for i in inputs)
-# # print(results)
