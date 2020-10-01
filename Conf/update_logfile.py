@@ -6,6 +6,8 @@ import time
 from joblib import Parallel, delayed
 import multiprocessing
 
+import threading
+
 # Path to the original log file
 backup_logfile = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial_backup.log'
 
@@ -90,16 +92,32 @@ def LineWriter_mthrd(file, lines, N_lines):
 
 
 def Batch_ComponentWriter(file, N_lines, N_reps):
-    time.sleep(1)
-    print(f'{file[-14:]} is working OK ✅ | {N_lines} - {N_reps}')
+    writing_freq = 5
+    current_thread = threading.current_thread().ident
+    current_file = file[-14:]
+    count = 1
+    with open(file, 'r') as loglines:
+        log_content = loglines.readlines()
+        if(not len(log_content)):
+            FillFile(backup_logfile, file)
+        elif len(log_content) > 1500:
+            ResetFile(backup_logfile, file)
+        for _ in range(N_reps):
+            lines = open(file, 'r').readlines()
+            print(
+                f'Writing an additional {N_lines} lines to the logfile...📑 | thd_id-{current_thread}')
+            LineWriter_mthrd(file, lines, N_lines)
+            time.sleep(writing_freq)
+            count = count+1
+            print(f'Finished the rep {count}')
 
 
 def BatchLogWriter(files, N_lines, N_reps):
     logstash_init_time = 0
-    writing_freq = 0
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
-    count = 1
+
+    # ?PARALLEL APPROACH
     parallel_batch = Parallel(n_jobs=multiprocessing.cpu_count())(
         delayed(Batch_ComponentWriter)(file, N_lines, N_reps) for file in files)
 
@@ -120,12 +138,12 @@ def BatchLogWriter(files, N_lines, N_reps):
     #             f'Writing an additional {N_lines} lines to the logfile...📑 ')
     #         LineWriter_mthrd(file, lines, N_lines)
     #         time.sleep(writing_freq)
-    
-    count = count+1
+    # count = count+1
+
     print(f'⌛️ Finished writing data in logfiles...')
 
 
 start = time.time()
-BatchLogWriter(log_batch, 2, 50)
-print(time.time()-start)
+BatchLogWriter(log_batch, 500, 3)
+print(f'Total logging process took: {time.time()-start}s')
 # LogLineWriter(logfile1, 150, 15)
