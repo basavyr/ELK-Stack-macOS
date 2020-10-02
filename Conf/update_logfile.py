@@ -9,17 +9,41 @@ import multiprocessing
 import threading
 
 # Path to the original log file
-backup_logfile = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial_backup.log'
+BACKUP_LOGFILE = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial_backup.log'
+
+# Path to the nova compute logs backup file
+BACKUP_NOVA_LOGFILE = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/nova-log_backup.log'
+
+
+LOGFILE_DIRECTORY_PATH = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/'
+
+
+def Generate_tutorial_log(TYPE, id):
+    if(TYPE == 'nova'):
+        logfile = LOGFILE_DIRECTORY_PATH+f'nova-log-{id}.log'
+    else:
+        logfile = LOGFILE_DIRECTORY_PATH+f'logstash-tutorial-{id}.log'
+    return logfile
 
 
 # The path to the logfile that must be constantly update
-logfile1 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log'
-logfile2 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-2.log'
-logfile3 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-3.log'
-logfile4 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-4.log'
-logfile5 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-5.log'
+# logfile1 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log'
+# logfile2 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-2.log'
+# logfile3 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-3.log'
+# logfile4 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-4.log'
+# logfile5 = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-5.log'
 
-log_batch = [logfile1, logfile2, logfile3, logfile4, logfile5]
+# log_batch = [logfile1, logfile2, logfile3, logfile4, logfile5]
+log_batch = []
+
+for id in range(5):
+    log_batch.append(Generate_tutorial_log('tutorial', id+1))
+
+
+nova_log_batch = []
+
+for id in range(2):
+    nova_log_batch.append(Generate_tutorial_log('nova', id+1))
 
 
 def ResetFile(backup_file, file):
@@ -67,8 +91,8 @@ def WriteLines(file, lines, number):
 
 
 def LogLineWriter(file, nLines, nReps):
-    logstash_init_time = 60
-    lines_beat_time = 15
+    logstash_init_time = 1
+    lines_beat_time = 10
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
     lines = open(file, 'r').readlines()
@@ -91,7 +115,7 @@ def LineWriter_mthrd(file, lines, N_lines):
             log_file.write(line)
 
 
-def Batch_ComponentWriter(file, N_lines, N_reps):
+def Batch_ComponentWriter(backup_logfile, file, N_lines, N_reps):
     writing_freq = 10
     current_thread = threading.current_thread().ident
     current_file = file[-14:]
@@ -108,18 +132,20 @@ def Batch_ComponentWriter(file, N_lines, N_reps):
                 f'Writing an additional {N_lines} lines to the logfile...📑 | thd_id-{current_thread}')
             LineWriter_mthrd(file, lines, N_lines)
             time.sleep(writing_freq)
-            count = count+1
             print(f'Finished the rep {count}')
+            count = count+1
 
 
 def BatchLogWriter(files, N_lines, N_reps):
-    logstash_init_time = 60
+    logstash_init_time = 1
     print(f'⏳Wait for the logstash instance to start...')
     time.sleep(logstash_init_time)
 
     # ?PARALLEL APPROACH
-    parallel_batch = Parallel(n_jobs=multiprocessing.cpu_count())(
-        delayed(Batch_ComponentWriter)(file, N_lines, N_reps) for file in files)
+    nova_parallel_batch = Parallel(n_jobs=multiprocessing.cpu_count())(
+        delayed(Batch_ComponentWriter)(BACKUP_NOVA_LOGFILE, file, N_lines, N_reps) for file in files)
+    # log_parallel_batch = Parallel(n_jobs=multiprocessing.cpu_count())(
+    #     delayed(Batch_ComponentWriter)(BACKUP_LOGFILE, file, N_lines, N_reps) for file in files)
 
     #! SERIAL APPROACH
     # for file in files:
@@ -144,6 +170,6 @@ def BatchLogWriter(files, N_lines, N_reps):
 
 
 start = time.time()
-BatchLogWriter(log_batch, 500, 10)
+BatchLogWriter(nova_log_batch, 500, 2)
 print(f'Total logging process took: {time.time()-start}s')
 # LogLineWriter(logfile1, 150, 15)
