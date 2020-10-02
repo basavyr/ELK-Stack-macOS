@@ -42,9 +42,11 @@ for id in range(5):
 
 nova_log_batch = []
 
-for id in range(2):
+for id in range(5):
     nova_log_batch.append(Generate_tutorial_log('nova', id+1))
 
+# for file in nova_log_batch:
+#     open(file,'w+')
 
 def ResetFile(backup_file, file):
     with open(backup_file, 'r') as f:
