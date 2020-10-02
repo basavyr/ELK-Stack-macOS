@@ -237,3 +237,11 @@ The parallel approach:
 ```
 
 ***Observation***: This method also shows the thread ID, and it is worth noting that in the serial approach, the thread is the same (main-thread). On the other hand, the parallel approach serves a different ID for each function execution, since there is a different thread which executes the method.
+
+## NOVA-COMPUTE log parsing
+
+The `nova-compute-nodes` generate log files while running live on the servers available at *DFCTI (NIPNE-HH)*.
+
+This logs need to be ingested, parsed and then stored. Main goal is to get a live analysis of all the virtual machines that are configured under a nova compute log, their performance and evolution of relevant parameters (e.g. VCPUs, memory, disk usage).
+
+More details on the configuration pipeline for logstash instance which aims at parsing the incoming logs can be seen [here](nova-compute-node.md).

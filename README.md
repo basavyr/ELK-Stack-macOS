@@ -166,3 +166,13 @@ output {
   }
 }
 ```
+
+## Extending the logging pipelines to support ingesting and parsing of logs from external servers
+
+The compute servers at *NIPNE-HH* are configured to send logs to a logstash instance which is running on a `CentOS-7` VM from the same server location.
+
+However, there is some testing required in order to properly ingest and then parse the logs given by the compute nodes (e.g. `nova-compute-nodes`).
+
+The main logstash pipeline should ingest logs from all the machines, but collect and store the information to ES in separate indices, for an easier organization.
+
+[This document](Resources/description.md) contains more information with regards to the actual configuration.
