@@ -20,7 +20,7 @@ metricbeat_conf = give_service_sys_path('metricbeat')
 filebeat_conf = give_service_sys_path('filebeat')
 
 # local copies of the config files (on the project tree)
-local_logstash_pipeline = project_tree + 'logstash-sample.conf'
+local_logstash_pipeline = project_tree + 'logstash_pipeline.conf'
 local_logstash_conf = project_tree + 'logstash.yml'
 local_metricbeat_conf = project_tree+'metricbeat.yml'
 local_filebeat_conf = project_tree+'filebeat.yml'
@@ -47,6 +47,7 @@ def CheckFiles(files):
             print(f'The config for {file[0]} was updated...| 📂')
 
 
-files = [['logstash', logstash_conf, local_logstash_conf], ['metricbeat', metricbeat_conf, local_metricbeat_conf], ['filebeat', filebeat_conf, local_filebeat_conf]]
+files = [['logstash', logstash_conf, local_logstash_conf], ['metricbeat', metricbeat_conf, local_metricbeat_conf], [
+    'filebeat', filebeat_conf, local_filebeat_conf], ['logstash-pipeline', logstash_pipeline, local_logstash_pipeline]]
 
 CheckFiles(files)

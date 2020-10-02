@@ -30,6 +30,7 @@ ___
 
 ```log
 2020-10-01 17:54:17.631 4831 WARNING nova.pci.utils [req-fef1267e-f155-417a-b5aa-73e1fa7eb7f1 - - - - -] No net device was found for VF 0000:3b:01.5: PciDeviceNotFoundById: PCI device 0000:3b:01.5 not found
+2020-10-02 10:58:44.597 4831 WARNING nova.pci.utils [req-fef1267e-f155-417a-b5aa-73e1fa7eb7f1 - - - - -] No net device was found for VF 0000:3b:01.2: PciDeviceNotFoundById: PCI device 0000:3b:01.2 not found
 2020-10-02 10:28:05.952 4831 WARNING nova.pci.utils [req-fef1267e-f155-417a-b5aa-73e1fa7eb7f1 - - - - -] No net device was found for VF 0000:3b:01.6: PciDeviceNotFoundById: PCI device 0000:3b:01.6 not found
 2020-10-02 10:27:04.555 4831 WARNING nova.pci.utils [req-fef1267e-f155-417a-b5aa-73e1fa7eb7f1 - - - - -] No net device was found for VF 0000:3b:01.3: PciDeviceNotFoundById: PCI device 0000:3b:01.3 not found
 2020-10-02 10:26:02.347 4831 WARNING nova.pci.utils [req-fef1267e-f155-417a-b5aa-73e1fa7eb7f1 - - - - -] No net device was found for VF 0000:3b:01.5: PciDeviceNotFoundById: PCI device 0000:3b:01.5 not found
