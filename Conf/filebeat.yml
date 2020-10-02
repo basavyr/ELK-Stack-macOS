@@ -19,15 +19,15 @@ filebeat.inputs:
   # Below are the input specific configurations.
   - type: log
     paths:
-      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log"
-    tags: ["LOG-1"]
-    fields: {log_type: logone}
+      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/nova-log-1.log"
+    tags: ["LOG-NOVA"]
+    fields: {log_type: nova}
   
   - type: log
     paths:
-      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-2.log"
-    tags: ["LOG-2"]
-    fields: {log_type: logtwo}
+      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log"
+    tags: ["LOG-EXAMPLE"]
+    fields: {log_type: example}
   
   
     # Change to true to enable this input configuration.

@@ -245,3 +245,9 @@ The `nova-compute-nodes` generate log files while running live on the servers av
 This logs need to be ingested, parsed and then stored. Main goal is to get a live analysis of all the virtual machines that are configured under a nova compute log, their performance and evolution of relevant parameters (e.g. VCPUs, memory, disk usage).
 
 > More details on the configuration pipeline for logstash instance which aims at parsing the incoming logs can be seen [here](nova-compute-node.md).
+
+## Parsing both types of lines
+
+In the latest update, the logstash pipeline is configured in such a way that both types of log lines (the `info` and `warning`) are parsed together in the same pipeline.
+
+Configuration pipeline for the logstash server that does this can be seen [here](../Conf/logstash_pipeline.conf).

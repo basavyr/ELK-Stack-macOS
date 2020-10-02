@@ -48,6 +48,7 @@ for id in range(5):
 # for file in nova_log_batch:
 #     open(file,'w+')
 
+
 def ResetFile(backup_file, file):
     with open(backup_file, 'r') as f:
         lines = f.readlines()
@@ -172,6 +173,6 @@ def BatchLogWriter(files, N_lines, N_reps):
 
 
 start = time.time()
-BatchLogWriter(nova_log_batch, 500, 2)
+BatchLogWriter(nova_log_batch, 5, 3)
 print(f'Total logging process took: {time.time()-start}s')
 # LogLineWriter(logfile1, 150, 15)
