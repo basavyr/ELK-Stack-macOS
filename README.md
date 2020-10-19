@@ -176,3 +176,34 @@ However, there is some testing required in order to properly ingest and then par
 The main logstash pipeline should ingest logs from all the machines, but collect and store the information to ES in separate indices, for an easier organization.
 
 [This document](Resources/description.md) contains more information with regards to the actual configuration.
+
+## Ingesting logs from external sources via filebeat + logstash
+
+The VM is configured with a `24/7` running instance of logstash, which listens (via port `5044`) to [**beats**](https://www.elastic.co/beats/) (e.g. `filebeat` - more info [here](https://www.elastic.co/beats/filebeat)) coming from external machines.
+
+Such example is a `nova-compute-node` that is configured on a different server, which monitors a Kubernetes network. The compute node is constantly sending some log files which the ELK logstash will ingest, and send them (after some additional parsing) to Elasticsearch. Through Kibana, it is possible to access the data and explore it with the help of a consistent UI.
+
+> ELK's Kibana UI is accessible via web through an *NGINX reverse proxy*.
+
+In order to classify each log file into a different ES index, the filebeat module must add special tags to each log file. Examples for such a process can be found [here](https://stackoverflow.com/questions/55498475/filebeat-send-different-logs-from-filebeat-to-different-logstash-pipeline).
+
+```yml
+filebeat.inputs:
+
+  # Each - is an input. Most options can be set at the input level, so
+  # you can use different inputs for various configurations.
+  # Below are the input specific configurations.
+  - type: log
+    paths:
+      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/nova-log-1.log"
+    tags: ["LOG-NOVA"]
+    fields: {log_type: nova}
+  
+  - type: log
+    paths:
+      - "/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Resources/LOGS/logstash-tutorial-1.log"
+    tags: ["LOG-EXAMPLE"]
+    fields: {log_type: example}
+  ```
+
+  More information on setting up filebeat with fields can be also found [here](https://discuss.elastic.co/t/multiple-filebeat-inputs-with-logstash-output/146343).
