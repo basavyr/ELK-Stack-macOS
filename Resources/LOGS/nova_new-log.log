@@ -1,0 +1,29 @@
+TEMPLATE STYLE: T1
+
+2020-06-17 05:25:56,2020-06-17 05:27:14,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,provider-instance,fba88b4f-66ba-4fdb-ba1d-a5e17f576e12,bchs65,1,deleted,64
+2020-06-17 06:33:35,2020-06-17 06:45:30,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-qtiowr3ddyny-master-0,5cec469f-fb65-4cb8-aefd-f4234e926ab0,bchs65,2,deleted,2048
+2020-06-17 06:47:47,2020-06-17 07:29:19,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-vlwovohpq7fl-master-0,e3cb26e4-91dd-49c6-b1a5-c0a7c9d6e6c6,bchs65,2,deleted,2048
+2020-06-17 06:48:30,2020-06-17 07:28:58,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-vlwovohpq7fl-minion-0,eb20b53c-af89-4094-b400-058f043cb138,bchs65,2,deleted,2048
+2020-06-17 07:31:18,2020-06-17 08:16:13,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-i4rlta2rd5ja-master-0,2b009bfb-8e86-4dc0-9647-5757aabd2774,bchs65,2,deleted,2048
+2020-06-17 07:32:01,2020-06-17 08:15:54,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-i4rlta2rd5ja-minion-0,4f9b06f1-8665-4cf7-ac7b-36a1ec04455c,bchs65,2,deleted,2048
+2020-06-17 08:21:25,2020-06-17 10:51:25,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-nemx4on3g2wy-master-0,121ca894-1f19-421a-84ea-e55f01ed4eb8,bchs65,2,deleted,2048
+2020-06-17 08:22:04,2020-06-17 10:51:08,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-nemx4on3g2wy-minion-0,4ae5b912-23f2-4d35-b850-073e240eb110,bchs65,2,deleted,2048
+2020-06-17 10:53:45,2020-06-17 13:04:45,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-lyifxaystfnp-master-0,32673952-4386-4518-b24b-3668c280e0ea,bchs65,2,deleted,2048
+2020-06-17 10:54:30,2020-06-17 13:04:25,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-lyifxaystfnp-minion-0,3c33b345-3315-4e80-ac90-fbb7797c236d,bchs65,2,deleted,2048
+2020-06-18 04:34:28,2020-06-18 04:41:13,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-wc2uxtju5tgj-master-0,a0f7f0b2-401e-45e6-a8b3-734c9ea8728a,bchs65,2,deleted,2048
+2020-06-18 04:35:10,2020-06-18 04:40:52,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-wc2uxtju5tgj-minion-1,6217cb38-5471-4add-8657-490b92c27c6e,bchs65,2,deleted,2048
+2020-06-18 04:42:47,2020-06-19 10:49:35,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-v7dbavhvxhij-master-0,67a08692-36c0-40e1-9acd-cb2f6fc9962e,bchs65,2,deleted,2048
+2020-06-18 04:43:31,2020-06-19 10:49:18,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,k8s-cluster-v7dbavhvxhij-minion-0,7a83ed04-a203-45b1-9f9d-2ed45ef940af,bchs65,2,deleted,2048
+2020-07-01 04:33:49,2020-07-01 04:38:55,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,provider-instance,1f8d5bcf-b722-4012-aa4d-f0524fdc8b82,bchs68,1,deleted,64
+2020-07-13 04:37:20,2020-07-13 04:38:23,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,test,4f20a8ea-756b-4e86-a063-9bd793f76112,bchs68,1,deleted,64
+
+TEMPLATE STYLE: T2
+2020-09-22 04:13:54,,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,cloudcompute02_hpc,b8419a9a-0a5a-4206-9228-69d7cee49569,dual-a,4,active,8192
+2020-09-22 04:16:06,,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,cloudcompute05_hpc,657d1054-cd14-4845-a3da-830c3b86648a,dual-c,4,active,8192
+2020-09-22 04:16:28,,b2793dec81d24496bbad171c74dfc965,0dc56f246ec14c92ba85a0239a5862d9,cloudcompute06_hpc,6002261d-e972-4189-8f28-aadc6fa50549,dual-c,4,active,8192
+
+> table header type
+created_at, deleted_at, user_id, project_id, display_name, uuid, launched_on, vcpus, vm_state, memory_mb
+
+TEMPLATE STYLES: [T1,T2]
+ ["%{TIMESTAMP_ISO8601:created_at},%{TIMESTAMP_ISO8601:deleted_at},%{UUID:user_id},%{UUID:project_id},%{DATA:display_name},%{UUID:uuid},%{DATA:launched_on},%{INT:v_cpus},%{DATA:VM_state},%{INT:VM_memory_MB}","%{TIMESTAMP_ISO8601:created_at},%{DATA:deleted_at},%{UUID:user_id},%{UUID:project_id},%{DATA:display_name},%{UUID:uuid},%{DATA:launched_on},%{INT:v_cpus},%{DATA:VM_state},%{INT:VM_memory_MB}"]
