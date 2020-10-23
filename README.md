@@ -207,3 +207,9 @@ filebeat.inputs:
   ```
 
   More information on setting up filebeat with fields can be also found [here](https://discuss.elastic.co/t/multiple-filebeat-inputs-with-logstash-output/146343).
+
+  ## Parsing new log-format from `nova-compute-nodes`
+
+In the latest update, (see [🔧 this commit]), the logstash instance was configured to ingest, parse and send logs to ES that have a special format.
+
+⚙️ More details to follow...
