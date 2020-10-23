@@ -210,6 +210,6 @@ filebeat.inputs:
 
   ## Parsing new log-format from `nova-compute-nodes`
 
-In the latest update, (see [🔧 this commit]), the logstash instance was configured to ingest, parse and send logs to ES that have a special format.
+In the latest update, (see [🔧 this commit](https://github.com/basavyr/ELK-Stack-macOS/commit/6a92c3a257b8ae57d1a85b37f0893f22002e94dd)), the logstash instance was configured to ingest, parse and send logs to ES that have a special format.
 
 ⚙️ More details to follow...
