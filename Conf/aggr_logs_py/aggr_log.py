@@ -27,7 +27,8 @@ def LogLine(uuid):
     USER = platform.node()
     HASH = secrets.token_hex(nbytes=20)
     JOBS = rd.randint(0, 10000)
-    return [TIMESTAMP,  uuid, USER, JOBS, HASH, IPADDR]
+    VM = rd.randint(1, 100)
+    return [TIMESTAMP,  uuid, USER, VM, JOBS, HASH, IPADDR]
 
 
 filepath = '/Users/basavyr/Library/Mobile Documents/com~apple~CloudDocs/Work/Pipeline/DevWorkspace/Github/ELK-Stack-macOS/Conf/aggr_logs_py/aggr_log.log'
